@@ -71,7 +71,7 @@ class Library {
 
 fun main() {
     // Erstellen einer Nested Class-Instanz
-    val book = Library.Book("Kotlin Programming", "John Doe")
+    val book = Library.Book("Have fun", "Karl Heinz")
     println(book.getBookInfo())  // Ausgabe: "Book Title: Kotlin Programming, Author: John Doe"
 
     // Erstellen einer Library-Instanz und einer Inner Class-Instanz
