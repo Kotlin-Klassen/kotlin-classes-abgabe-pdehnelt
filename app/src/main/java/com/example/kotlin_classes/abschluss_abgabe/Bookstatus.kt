@@ -20,7 +20,7 @@ sealed class BookStatus {
 
 fun main() {
     val availableBook = BookStatus.Available
-    val checkedOutBook = BookStatus.CheckedOut("2020-12-31")
+    val checkedOutBook = BookStatus.CheckedOut("2020-09-07")
     val reservedBook = BookStatus.Reserved("Karl Heinz")
 
     availableBook.printStatus()

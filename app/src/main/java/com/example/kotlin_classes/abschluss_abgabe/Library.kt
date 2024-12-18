@@ -4,7 +4,7 @@ import com.example.kotlin_classes.classes.nested_inner.Library
 
 
 class Library {
-    private val books = mutableListOf<Books>()
+    private val books = mutableListOf<Book>()
 
     class LibraryAddress(val street: String, val city: String, val zipCode: String) {
         fun printAddress() {
@@ -14,7 +14,7 @@ class Library {
 
 
     inner class LibraryMember(val name: String, val memberID: Int) {
-        fun checkoutBook(book: Books, dueDate: String) {
+        fun checkoutBook(book: Book, dueDate: String) {
             if (book.status is BookStatus.Available) {
                 book.status = BookStatus.CheckedOut(dueDate)
                 println("$name checked out ${book.title} until $dueDate")
@@ -23,7 +23,7 @@ class Library {
             }
         }
 
-        fun reserveBook(book: Books) {
+        fun reserveBook(book: Book) {
             if (book.status is BookStatus.Available) {
                 book.status = BookStatus.Reserved(name)
                 println("$name reserved ${book.title}")
@@ -33,7 +33,7 @@ class Library {
         }
     }
 
-    fun addBook(book: Books) {
+    fun addBook(book: Book) {
         books.add(book)
         println("Added: ${book.title}")
     }
@@ -70,12 +70,23 @@ class Library {
 }
 
 fun main() {
-    // Erstellen einer Nested Class-Instanz
-    val book = Library.Book("Have fun", "Karl Heinz")
-    println(book.getBookInfo())  // Ausgabe: "Book Title: Kotlin Programming, Author: John Doe"
+    val library = Library()
 
-    // Erstellen einer Library-Instanz und einer Inner Class-Instanz
-    val myLibrary = Library("City Library")
-    val librarian = myLibrary.Librarian("Alice Smith")
-    println(librarian.getLibrarianInfo())  // Ausgabe: "Librarian: Alice Smith, Library: City Library"
+    val book1 = Book("Das letzte Einhorn", "Arthur Rankin", Genre.FICTION, BookStatus.Available)
+    val book2 = Book("Das letzte Einhorn", "Arthur Rankin", Genre.FICTION, BookStatus.Available)
+    val book3 = Book("Murder on the Orient Express", "Agatha Christie", Genre.NON_FICTION, BookStatus.Available)
+
+    library.addBook(book1)
+    library.addBook(book2)
+    library.addBook(book3)
+
+    library.searchBookByTitle("Das letzte Einhorn")
+    library.searchBookByAuthor("Agatha Christie")
+
+    val member = library.LibraryMember("Karl Heinz", 101)
+    member.checkoutBook(book1, "2028-06-06")
+    member.reserveBook(book3)
+
+    println("\nCurrent Library Inventory:")
+    library.displayAllBooks { info -> println(info) }
 }
